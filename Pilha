@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int *criar_vetor(int tam)
+{
+	int *vetor = (int*)malloc(tam * sizeof(int));
+	
+	int i;
+	
+	for (i = 0; i < tam; ++i)
+	{
+		vetor[i] = 0;
+	}
+	
+	return vetor;
+}
+
+void show(int *vetor, int tam)
+{
+	int i;
+	
+	for (i = 0; i < tam; ++i)
+	{
+		printf("%d ", vetor[i]);
+	}
+}
+
+
+int pilha_add(int *vetor, int num, int *topo)
+{
+	*topo += 1;
+	
+	vetor[*topo] = num;
+		
+}
+
+int pilha_rem(int *vetor, int *topo)
+{
+	vetor[*topo] = 0;
+	
+	*topo -= 1;
+}
+int main()
+{
+	int tam = 5;
+	int topo = -1;
+	int escolha;
+	int num;
+	int *vetor;
+	
+	
+	for(;;)
+	{	
+	system("cls");
+	printf("=====================================");
+	printf("\n1-Criar Pilha");
+	printf("\n2-Atribuir valores a pilha");
+	printf("\n3-Remover  valores a pilha");
+	printf("\n4-Mostrar valores da pilha");
+	printf("\n=====================================\n");
+	
+	printf("Escolha uma opcao");
+	scanf("%d", &escolha);
+	fflush(stdin);
+	
+	switch(escolha)
+	{
+		case 1:
+			system("cls");
+			vetor = criar_vetor(tam);
+			printf("Vetor criado!\n");
+			show(vetor, tam);
+			getchar();
+			break;
+			
+		case 2:
+			system("cls");
+			if (topo == tam - 1)
+			{
+				printf("Pilha esta cheia!");
+				getchar();
+				break;
+			}
+			system("cls");
+			printf("Digite um numero:");
+			scanf("%d", &num);
+			pilha_add(vetor, num, &topo);
+			getchar();
+			break;
+			
+		case 3:
+			system("cls");
+			if (topo == -1)
+			{
+				printf("Nao existe valores para remover!");
+				getchar();
+				break;
+			}else{
+			printf("Removendo valor: %d", vetor[topo]);
+			pilha_rem(vetor, &topo);
+			printf("\nValor removido!");
+			getchar();
+			break;
+			}
+			
+		
+		case 4:
+			system("cls");
+			show(vetor, 5);
+			getchar();
+			break;
+			
+	}
+
+	}
+}
