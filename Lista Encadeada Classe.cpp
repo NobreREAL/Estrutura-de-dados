@@ -32,6 +32,17 @@ class Agenda
 			return count;			
 		}
 		
+		void Remover_Inicio(Dados *&Ponteiro, std::string *Nome, int *Telefone)
+		{
+			*Nome = Ponteiro->Nome;
+			*Telefone = Ponteiro->Telefone;
+			
+			Ponteiro = Ponteiro->proximo;
+			
+			std::cout << "Contato Removido.\n";
+			
+		}
+		
 		void Mostrar_Agenda(Dados *Ponteiro)
 		{
 			Dados *p = Ponteiro;
@@ -63,7 +74,7 @@ class Agenda
 			Ponteiro = novoUser;
 		}
 		
-		void Remover_Agenda(Dados *&Ponteiro, int TAM, std::string *Nome, int *Telefone)
+		void Remover_Agenda(Dados *Ponteiro, int TAM, std::string *Nome, int *Telefone)
 		{
 			if (TAM == 0)
 			{
@@ -97,12 +108,14 @@ class Agenda
 							
 							Dados *aux = new Dados;
 							
+							aux = p->proximo;
+							
 							p->proximo = aux->proximo;
 							
 							free(aux);
 							
 						}
-						
+												
 						p = p->proximo;
 						
 						contador += 1;
@@ -169,7 +182,12 @@ int main()
 				
 				int POS;
 				system("cls");
+				if (acessar.Quantidade_Agenda(ponteiro) == 1)
+				{
+					acessar.Remover_Inicio(ponteiro, &Nome, &Telefone);
+				}else{
 				acessar.Remover_Agenda(ponteiro, acessar.Quantidade_Agenda(ponteiro), &Nome, &Telefone);
+				}
 				system("PAUSE");
 				break;
 			case 4:
